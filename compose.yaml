@@ -1,0 +1,35 @@
+services:
+  php:
+    build:
+      context: ./docker/php
+    working_dir: /app
+    volumes:
+      - ".:/app"
+    user: "${UID:-1000}:${GID:-1000}"
+    command: ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+
+  database:
+    image: postgres:13
+    volumes:
+      - "database_data:/var/lib/postgresql/data:rw"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-d",
+          "${POSTGRES_DB:-app}",
+          "-U",
+          "${POSTGRES_USER:-app}",
+        ]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    command: ["postgres", "-c", "log_statement=all"]
+
+volumes:
+  database_data:

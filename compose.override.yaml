@@ -1,0 +1,7 @@
+services:
+  php:
+    ports:
+      - "8080"
+  database:
+    ports:
+      - "5432"
