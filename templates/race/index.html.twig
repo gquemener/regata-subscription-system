@@ -21,8 +21,8 @@
                 <td>{{ race.name }}</td>
                 <td>{{ race.date ? race.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="#" hx-get="{{ path('app_race_show', {'id': race.id}) }}" hx-target="body" hx-push-url="true">show</a>
-                    <a href="#" hx-get="{{ path('app_race_edit', {'id': race.id}) }}" hx-target="body" hx-push-url="true">edit</a>
+                    <a href="{{ path('app_race_show', {'id': race.id}) }}">show</a>
+                    <a href="{{ path('app_race_edit', {'id': race.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="#" hx-get="{{ path('app_race_new') }}" hx-target="body" hx-push-url="true">Create new</a>
+    <a href="{{ path('app_race_new') }}">Create new</a>
 {% endblock %}
