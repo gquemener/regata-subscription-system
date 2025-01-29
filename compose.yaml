@@ -7,6 +7,9 @@ services:
       - ".:/app"
     user: "${UID:-1000}:${GID:-1000}"
     command: ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+    environment:
+      XDEBUG_HOST: 0.0.0.0
+      XDEBUG_MODE: debug
 
   database:
     image: postgres:13
